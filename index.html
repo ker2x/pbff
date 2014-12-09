@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<style>
+.ui-content {
+    padding: 0 !important;
+}
+ 
+.ui-listview {
+    margin: 0 !important;
+}
+ 
+.my-wrapper, .my-wrapper div.iscroll-scroller {
+    width: 100% !important;
+}
+</style>
+
+  <script type="text/javascript">
+
+
+var json = {
+	"title": "ma checklist",
+	"checklist" : [
+		{"title" : "item 1", "checked" : "text checked"} ,
+		{"title" : "item 2", "checked" : "text checked"} ,
+		{"title" : "item 3", "checked" : "text checked"} ,
+	]
+}; 
+
+$(document).on("pagecreate", function() {
+
+	//$.getJSON('checklists.json', function(data) {
+		var data = json;
+
+		var cnt = document.getElementById('checklist-content');
+		$.each(data.checklist, function(k, v) {
+			$('#cl-list').append('<li><a href=""><h3>' + v.title + '</h3><p>' + v.checked + '</p></a></li>');
+		});
+		$('#cl-list').listview('refresh');
+	//});
+}); 
+
+$(document).on('vclick', '#cl-list li a', function(){  
+    $.mobile.changePage( "#clpage", { transition: "slide", changeHash: false });
+});
+
+  </script>
+ 
+
+
+</head>
+
+
+<body>
+
+<div data-role="page" id="home">
+    <div data-theme="a" data-role="header">
+        <h3>
+            List
+        </h3>
+    </div>
+
+    <div data-role="content">
+        <div class="my-wrapper" data-iscroll>
+            <ul data-role="listview"  id="cl-list" data-theme="a">
+                
+            </ul>
+        </div>
+    </div>
+
+    <div data-theme="a" data-role="footer">
+        <h1>Copyright ou pas</h1>
+    </div>  
+</div>
+
+<div data-role="page" id="clpage">
+    <div data-theme="a" data-role="header">
+        <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>
+        <h3>
+            Checklist Info
+        </h3>
+    <div data-role="content">
+        <ul data-role="listview"  id="movie-data" data-theme="a">
+            
+        </ul>
+    </div>
+</div>    
+
+
+<!--
+<div data-role="page" id="pageone">
+  <div data-role="header">
+  <h1>Welcome To My Homepage</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <div data-role="controlgroup" data-type="vertical" id="checklist-content"> </div>
+  </div>
+
+  <div data-role="footer">
+  <h1>Footer Text</h1>
+  </div>
+</div> 
+
+<div data-role="page" data-dialog="true" id="pagetwo">
+  <div data-role="header">
+    <h1>Welcome To My Homepage</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>This is Page Two. If you click on the link below, it will take you to Page One.</p>
+    <a href="#pageone">Go to Page One</a>
+  </div>
+
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+</div> 
+
+</div> 
+-->
+
+</body>
+</html>
+

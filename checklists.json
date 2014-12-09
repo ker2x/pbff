@@ -1,0 +1,8 @@
+{
+"title": "ma checklist",
+"checklist" : [
+{"title" : "item 1", "checked" : "text checked"} ,
+{"title" : "item 2", "checked" : "text checked"} ,
+{"title" : "item 3", "checked" : "text checked"} ,
+]
+}; 
