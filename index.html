@@ -22,6 +22,11 @@
 .my-wrapper, .my-wrapper div.iscroll-scroller {
     width: 100% !important;
 }
+
+.ui-btn.clchecked {
+	background-color: #a6a6a6 !important;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -70,10 +75,14 @@ $(document).on('vclick', '#cl-list li a', function(){
     $.mobile.changePage( "#clpage", { transition: "slide", changeHash: false });
 });
 
+$(document).on('vclick', '#cl-data li a', function(){  
+	$(this).toggleClass("clchecked");
+});
+
 $(document).on("pagebeforeshow", '#clpage', function() {
 	$('#cl-data').empty();
 	$.each(json.checklist[clickedid].list, function(k,v) {
-		$('#cl-data').append('<li><h3>' + v.title + '</h3><p>' + v.text + '</p></li>');
+		$('#cl-data').append('<li data-icon="false"><a href="#"><h3>plop' + v.title + '</h3><p>' + v.text + '</p></a></li>');
 	
 	});
 	$('#cl-data').listview('refresh');
@@ -114,7 +123,7 @@ $(document).on("pagebeforeshow", '#clpage', function() {
         <h3> Checklist </h3>
     <div data-role="content">
         <ul data-role="listview"  id="cl-data">
-            
+           coinc 
         </ul>
     </div>
 </div>    
