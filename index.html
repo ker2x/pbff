@@ -26,31 +26,57 @@
 
 <script type="text/javascript">
 
-
 var json = {
-	"title": "ma checklist",
 	"checklist" : [
-		{"title" : "item 1", "checked" : "text checked"} ,
-		{"title" : "item 2", "checked" : "text checked"} ,
-		{"title" : "item 3", "checked" : "text checked"} ,
+		{
+			"title" : "Checklist 1",
+			"text" : "this is checklist #1",
+			"list" : [
+					{ "title" : "First", "text" : "Complete first item"}, 
+					{ "title" : "Second", "text" : "Complete 2nd item"}, 
+					{ "title" : "Third", "text" : "Complete 3rd item"}, 
+					{ "title" : "Fourth", "text" : "Complete 4th item"} 
+				]
+		},
+		{
+			"title" : "Checklist 2",
+			"text" : "this is checklist #2",
+			"list" : [
+					{ "title" : "1st", "text" : "Complete first item"}, 
+					{ "title" : "2nd", "text" : "Complete 2nd item"}, 
+					{ "title" : "3rd", "text" : "Complete 3rd item"}, 
+					{ "title" : "4th", "text" : "Complete 4th item"} 
+				]
+		}
 	]
-}; 
+};
 
+var clickedid = 0;
+	
 $(document).on("pageinit", '#home', function() {
 
 	//$.getJSON('checklists.json', function(data) {
-		var data = json;
-
-		var cnt = document.getElementById('checklist-content');
-		$.each(data.checklist, function(k, v) {
-			$('#cl-list').append('<li><a href=""><h3>' + v.title + '</h3><p>' + v.checked + '</p></a></li>');
+		var clid = 0;
+		$.each(json.checklist, function(k, v) {
+			$('#cl-list').append('<li><a href="" cl-id="' + clid + '"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>');
+			clid = clid + 1
 		});
 		$('#cl-list').listview('refresh');
 	//});
 }); 
 
 $(document).on('vclick', '#cl-list li a', function(){  
+    clickedid = $(this).attr('cl-id');
     $.mobile.changePage( "#clpage", { transition: "slide", changeHash: false });
+});
+
+$(document).on("pagebeforeshow", '#clpage', function() {
+	$('#cl-data').empty();
+	$.each(json.checklist[clickedid].list, function(k,v) {
+		$('#cl-data').append('<li><h3>' + v.title + '</h3><p>' + v.text + '</p></li>');
+	
+	});
+	$('#cl-data').listview('refresh');
 });
 
 </script>
@@ -62,11 +88,10 @@ $(document).on('vclick', '#cl-list li a', function(){
 
 <body>
 
+<!-- MAIN PAGE -->
 <div data-role="page" id="home">
     <div data-theme="a" data-role="header">
-        <h3>
-		Pilot Best Friend Forever
-        </h3>
+        <h3> Pilot Best Friend Forever </h3>
     </div>
 
     <div data-role="content">
@@ -82,52 +107,17 @@ $(document).on('vclick', '#cl-list li a', function(){
     </div>  
 </div>
 
+<!-- CHECKLIST PAGE -->
 <div data-role="page" id="clpage">
     <div data-theme="a" data-role="header">
         <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>
-        <h3>
-            Checklist Info
-        </h3>
+        <h3> Checklist </h3>
     <div data-role="content">
-        <ul data-role="listview"  id="movie-data" data-theme="a">
+        <ul data-role="listview"  id="cl-data">
             
         </ul>
     </div>
 </div>    
-
-
-<!--
-<div data-role="page" id="pageone">
-  <div data-role="header">
-  <h1>Welcome To My Homepage</h1>
-  </div>
-
-  <div data-role="main" class="ui-content">
-    <div data-role="controlgroup" data-type="vertical" id="checklist-content"> </div>
-  </div>
-
-  <div data-role="footer">
-  <h1>Footer Text</h1>
-  </div>
-</div> 
-
-<div data-role="page" data-dialog="true" id="pagetwo">
-  <div data-role="header">
-    <h1>Welcome To My Homepage</h1>
-  </div>
-
-  <div data-role="main" class="ui-content">
-    <p>This is Page Two. If you click on the link below, it will take you to Page One.</p>
-    <a href="#pageone">Go to Page One</a>
-  </div>
-
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
-</div> 
-
-</div> 
--->
 
 </body>
 </html>
