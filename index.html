@@ -24,6 +24,21 @@
     width: 100% !important;
 }
 */
+
+h1, body {
+	font-size: 2em !important;
+}
+
+h2 {
+	font-size: 1.5em !important;
+	text-align: right;
+	padding-right: 10%;
+}
+
+.ui-block-b {
+	margin-top: 0.5em;
+}
+
 .ui-btn.clchecked {
 	background-color: #a6a6a6 !important;
 }
@@ -114,7 +129,7 @@ var json = {
 					{ "title" : "Ignition Selector", "text" : "Start"},
 					{ "title" : "Engine 2 Master", "text" : "ON"},
 					{ "title" : "Engine 1 Master", "text" : "ON"},
-					{ "title" : "", "text" : "", "style" : "clsperarator"},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
 					{ "title" : "AFTER ENGINE START", "text" : "", "style" : "cltitle"},
 					{ "title" : "Ignition selector", "text" : "Normal"},
@@ -222,47 +237,54 @@ var json = {
 
 var clickedid = 0;
 	
+// JS for main page
 $(document).on("pageinit", '#home', function() {
 
 	//$.getJSON('checklists.json', function(data) {
 		var clid = 0;
 		$.each(json.checklist, function(k, v) {
-			$('#cl-list').append('<li><a href="" cl-id="' + clid + '"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>');
+			$('#cl-list').append('<li><a href="" cl-id="' + clid + '"><h1>' + v.title + '</h1><p>' + v.text + '</p></a></li>');
 			clid = clid + 1
 		});
 		$('#cl-list').listview('refresh');
 	//});
 }); 
 
+// On checklist click
 $(document).on('vclick', '#cl-list li a', function(){  
     clickedid = $(this).attr('cl-id');
     $.mobile.changePage( "#clpage", { transition: "slide", changeHash: false });
 });
 
-$(document).on('vclick', '#cl-data li a', function(){  
-	$(this).toggleClass("clchecked");
-});
 
+// JS for 2nd page
 $(document).on("pagebeforeshow", '#clpage', function() {
 	$('#cl-data').empty();
 	$.each(json.checklist[clickedid].list, function(k,v) {
 		console.log(v.title);
 		if(typeof v.style === "undefined") {
-			line  = '<li data-icon="false"><a href="#"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>';
+			line  = '<li data-icon="false"><a href="#">' +
+				'<div class="ui-grid-a">' +
+				'	<div class="ui-block-a"><h1>' + v.title + '</h1></div>' +
+				'	<div class="ui-block-b"><h2>' + v.text + '</h2></div>' +
+				'</div> </a></li>';
 		} else if(v.style == "cltitle") {
-			line  = '<li data-role="list-divider"><h3>' + v.title + '</h3><p>' + v.text + '</p></li>';
+			line  = '<li data-role="list-divider"><h1>' + v.title + '</h1><p>' + v.text + '</p></li>';
 		} else {
-			line  = '<li data-icon="false"><a href="#" class="' + v.style + '"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>';
+			line  = '<li data-icon="false"><a href="#" class="' + v.style + '"><h1>' + v.title + '</h1><p>' + v.text + '</p></a></li>';
 		} 
 		$('#cl-data').append(line);
 	});
 	$('#cl-data').listview('refresh');
 });
 
+// On Item click
+$(document).on('vclick', '#cl-data li a', function(){  
+	$(this).toggleClass("clchecked");
+});
+
+
 </script>
- 
-
-
 </head>
 
 
