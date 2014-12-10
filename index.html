@@ -2,7 +2,7 @@
 <html>
 <head>
   <!-- Include meta tag to ensure proper rendering and touch zooming -->
-  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width;">
   <!-- Include jQuery Mobile stylesheets -->
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <!-- Include the jQuery library -->
@@ -11,6 +11,11 @@
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 <style>
+
+@media (min-width: 480px) {
+	body, h1, h2, p { font-size: 2em !important; }
+}
+
 /*
 .ui-content {
     padding: 0 !important;
@@ -278,7 +283,7 @@ $(document).on("pagebeforeshow", '#clpage', function() {
 				'<div class="ui-grid-a">' +
 				'	<div class="ui-block-a" style=""><h1>' + v.title + '</h1></div>' +
 				'	<div class="ui-block-b"><h2>' + v.text + '</h2></div>' +
-				'</div>' + desc + '</p></a></li>';
+				'</div>' + desc + '</a></li>';
 		} else if(v.style == "cltitle") {
 			line  = '<li data-role="list-divider"><h1>' + v.title + '</h1><p>' + v.text + '</p></li>';
 		} else {
