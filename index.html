@@ -92,11 +92,9 @@ var json = {
 
 					{ "title" : "ADIRS data selector", "text" : "STS"},
 					{ "title" : "ADIRS system selector", "text" : "1"},
-					{ "title" : "ADIRS1 Selector", "text" : "NAV"},
-					{ "title" : "Wait for BAT light OFF", "text" : ""},
-					{ "title" : "ADIRS2 Selector", "text" : "NAV"},
-					{ "title" : "Wait for BAT light OFF", "text" : ""},
-					{ "title" : "ADIRS3 Selector", "text" : "NAV"},
+					{ "title" : "ADIRS1 Selector", "text" : "NAV", "desc":"Wait for BAT light OFF"},
+					{ "title" : "ADIRS2 Selector", "text" : "NAV", "desc":"Wait for BAT light OFF"},
+					{ "title" : "ADIRS3 Selector", "text" : "NAV", "desc":"Wait for BAT light OFF"},
 					{ "title" : "Wait for BAT light OFF", "text" : ""},
 					{ "title" : "ADIRS Position", "text" : "Enter"},
 					{ "title" : "", "text" : "", "style" : "clseparator" },
@@ -271,11 +269,17 @@ $(document).on("pagebeforeshow", '#clpage', function() {
 	$.each(json.checklist[clickedid].list, function(k,v) {
 		console.log(v.title);
 		if(typeof v.style === "undefined") {
+			var desc;
+			if(typeof v.desc === "undefined") {
+				desc = "";
+			} else {
+				desc = "<p>" + v.desc + "</p>";
+			}
 			line  = '<li data-icon="false"><a href="#">' +
 				'<div class="ui-grid-a">' +
 				'	<div class="ui-block-a" style=""><h1>' + v.title + '</h1></div>' +
 				'	<div class="ui-block-b"><h2>' + v.text + '</h2></div>' +
-				'</div> </a></li>';
+				'</div>' + desc + '</p></a></li>';
 		} else if(v.style == "cltitle") {
 			line  = '<li data-role="list-divider"><h1>' + v.title + '</h1><p>' + v.text + '</p></li>';
 		} else {
