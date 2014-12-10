@@ -11,6 +11,7 @@
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 <style>
+/*
 .ui-content {
     padding: 0 !important;
 }
@@ -22,10 +23,18 @@
 .my-wrapper, .my-wrapper div.iscroll-scroller {
     width: 100% !important;
 }
-
+*/
 .ui-btn.clchecked {
 	background-color: #a6a6a6 !important;
 }
+
+.clseparator {
+	background-color: #424242 !important;
+} 
+
+.cltitle {
+	background-color: #AAAAAA !important;
+} 
 
 </style>
 
@@ -37,7 +46,7 @@ var json = {
 			"title" : "A320neo",
 			"text" : "X-Plane / JarDesign",
 			"list" : [
-					{ "title" : "COCKPIT PREPARATION", "text" : "(click me)"}, 
+					{ "title" : "COCKPIT PREPARATION", "text" : "", "style" : "cltitle"}, 
 					{ "title" : "Stairway", "text" : "CALL/CONN"}, 
 					{ "title" : "Engine Master 1", "text" : "OFF"}, 
 					{ "title" : "Engine Master 2", "text" : "OFF"}, 
@@ -81,9 +90,9 @@ var json = {
 					{ "title" : "Thrust lever", "text" : "IDLE"},
 					{ "title" : "ADIRS", "text" : "ALIGNED"},
 					{ "title" : "Cockpit Prepration", "text" : "COMPLETED"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator" },
 
-					{ "title" : "BEFORE START CHECKLIST", "text" : ""},
+					{ "title" : "BEFORE START CHECKLIST", "text" : "", "style":"cltitle"},
 					{ "title" : "Doors", "text" : "CLOSED"},
 					{ "title" : "Stairway", "text" : "DISMISSED"},
 					{ "title" : "Seatbelt sign", "text" : "ON"},
@@ -98,16 +107,16 @@ var json = {
 					{ "title" : "Antiskid", "text" : "ON"},
 					{ "title" : "Parking brake", "text" : "ON"},
 					{ "title" : "Before start checklist", "text" : "COMPLETED"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator" },
 
-					{ "title" : "ENGINE START", "text" : ""},
+					{ "title" : "ENGINE START", "text" : "", "style":"cltitle"},
 					{ "title" : "Fuel pumps", "text" : "ON"},
 					{ "title" : "Ignition Selector", "text" : "Start"},
 					{ "title" : "Engine 2 Master", "text" : "ON"},
 					{ "title" : "Engine 1 Master", "text" : "ON"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clsperarator"},
 
-					{ "title" : "AFTER ENGINE START", "text" : ""},
+					{ "title" : "AFTER ENGINE START", "text" : "", "style" : "cltitle"},
 					{ "title" : "Ignition selector", "text" : "Normal"},
 					{ "title" : "APU bleed", "text" : "OFF"},
 					{ "title" : "Pack 1", "text" : "ON"},
@@ -116,63 +125,63 @@ var json = {
 					{ "title" : "Autobrake", "text" : "MAX"},
 					{ "title" : "Flaps", "text" : "UP"},
 					{ "title" : "Apu Master", "text" : "OFF"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "TAXI CHECKLIST", "text" : ""},
+					{ "title" : "TAXI CHECKLIST", "text" : "", "style":"cltitle"},
 					{ "title" : "Anti-ice", "text" : "AS REQ"},
 					{ "title" : "Clearance", "text" : "OBTAINED"},
 					{ "title" : "Nose Light", "text" : "TAXI"},
 					{ "title" : "Parking Break", "text" : "Released"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "AT HOLDING POINT", "text" : ""},
+					{ "title" : "AT HOLDING POINT", "text" : "", "style" : "cltitle"},
 					{ "title" : "Weather Radar", "text" : "ON"},
 					{ "title" : "ATC Clearance", "text" : "OBTAINED"},
 					{ "title" : "Transponder/TCAS", "text" : "MODE C"},
 					{ "title" : "FLAPS", "text" : "SET"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "LINED UP", "text" : ""},
+					{ "title" : "LINED UP", "text" : "", "style" : "cltitle"},
 					{ "title" : "Pack 1", "text" : "OFF"},
 					{ "title" : "Pack 2", "text" : "OFF"},
 					{ "title" : "Landing Light", "text" : "ON"},
 					{ "title" : "Nose light", "text" : "OFF"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "TAKEOFF", "text" : ""},
+					{ "title" : "TAKEOFF", "text" : "", "style" : "cltitle"},
 					{ "title" : "Break", "text" : "Released"},
 					{ "title" : "Thrust levers", "text" : "TOGA/FLEX"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "AFTER TAKEOFF", "text" : ""},
+					{ "title" : "AFTER TAKEOFF", "text" : "", "style" : "cltitle"},
 					{ "title" : "Gears", "text" : "UP"},
 					{ "title" : "Pack 1", "text" : "ON"},
 					{ "title" : "Pack 2", "text" : "ON"},
 					{ "title" : "Flaps", "text" : "UP"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "CLIMB", "text" : ""},
+					{ "title" : "CLIMB", "text" : "", "style" : "cltitle"},
 					{ "title" : "Anti-ice", "text" : "AS REQ"},
 					{ "title" : "Altimeter QNH", "text" : "STD"},
 					{ "title" : "Passing 10k feets", "text" : ""},
 					{ "title" : "Landging lights", "text" : "OFF"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "CRUISE", "text" : ""},
+					{ "title" : "CRUISE", "text" : "", "style" : "cltitle"},
 					{ "title" : "Seatbelt sign", "text" : "AS REQ"},
 					{ "title" : "Time to relax", "text" : ":)"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "DESCENT", "text" : ""},
+					{ "title" : "DESCENT", "text" : "", "style":"cltitle"},
 					{ "title" : "FMGS APP PHASE", "text" : "SET"},
 					{ "title" : "FMGS TOGA PHASE", "text" : "Checked"},
 					{ "title" : "Seatbelt sign", "text" : "ON"},
 					{ "title" : "", "text" : ""},
 					{ "title" : "Passing 10k feets", "text" : ""},
 					{ "title" : "Landing Light", "text" : "ON"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "APPROACH", "text" : ""},
+					{ "title" : "APPROACH", "text" : "", "style" : "cltitle"},
 					{ "title" : "FMGS APP PHASE", "text" : "Activated"},
 					{ "title" : "ILS button", "text" : "ON"},
 					{ "title" : "Altimeter QNH", "text" : "Set"},
@@ -181,16 +190,16 @@ var json = {
 					{ "title" : "AP2", "text" : "ON"},
 					{ "title" : "Altimeter QNH", "text" : "Set"},
 					{ "title" : "Flaps", "text" : "AS REQ"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "LANDING", "text" : ""},
+					{ "title" : "LANDING", "text" : "", "style" : "cltitle"},
 					{ "title" : "Landing Gear", "text" : "DOWN"},
 					{ "title" : "Flaps", "text" : "FULL"},
 					{ "title" : "Autobrake", "text" : "SET"},
 					{ "title" : "Ground Spoiler", "text" : "ARM"},
-					{ "title" : "", "text" : ""},
+					{ "title" : "", "text" : "", "style" : "clseparator"},
 
-					{ "title" : "AFTER LANDING", "text" : ""},
+					{ "title" : "AFTER LANDING", "text" : "", "style" : "cltitle"},
 					{ "title" : "...", "text" : ""},
 					{ "title" : "", "text" : ""},
 					{ "title" : "", "text" : ""},
@@ -237,8 +246,15 @@ $(document).on('vclick', '#cl-data li a', function(){
 $(document).on("pagebeforeshow", '#clpage', function() {
 	$('#cl-data').empty();
 	$.each(json.checklist[clickedid].list, function(k,v) {
-		$('#cl-data').append('<li data-icon="false"><a href="#"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>');
-	
+		console.log(v.title);
+		if(typeof v.style === "undefined") {
+			line  = '<li data-icon="false"><a href="#"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>';
+		} else if(v.style == "cltitle") {
+			line  = '<li data-role="list-divider"><h3>' + v.title + '</h3><p>' + v.text + '</p></li>';
+		} else {
+			line  = '<li data-icon="false"><a href="#" class="' + v.style + '"><h3>' + v.title + '</h3><p>' + v.text + '</p></a></li>';
+		} 
+		$('#cl-data').append(line);
 	});
 	$('#cl-data').listview('refresh');
 });
@@ -255,13 +271,12 @@ $(document).on("pagebeforeshow", '#clpage', function() {
 <!-- MAIN PAGE -->
 <div data-role="page" id="home">
     <div data-theme="a" data-role="header">
-        <h3> Pilot Best Friend Forever </h3>
+        <h3> Pilot's Best Friend Forever </h3>
     </div>
 
     <div data-role="content">
         <div class="my-wrapper" data-iscroll>
             <ul data-role="listview"  id="cl-list" data-theme="a">
-                
             </ul>
         </div>
     </div>
@@ -278,7 +293,6 @@ $(document).on("pagebeforeshow", '#clpage', function() {
         <h3> Checklist </h3>
     <div data-role="content">
         <ul data-role="listview"  id="cl-data">
-           coinc 
         </ul>
     </div>
 </div>    
