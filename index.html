@@ -272,14 +272,12 @@ var clickedid = 0;
 // JS for main page
 $(document).on("pageinit", '#home', function() {
 
-	//$.getJSON('checklists.json', function(data) {
 		var clid = 0;
 		$.each(json.checklist, function(k, v) {
 			$('#cl-list').append('<li><a href="" cl-id="' + clid + '"><h1>' + v.title + '</h1><p>' + v.text + '</p></a></li>');
 			clid = clid + 1
 		});
 		$('#cl-list').listview('refresh');
-	//});
 }); 
 
 // On checklist click
@@ -292,6 +290,7 @@ $(document).on('vclick', '#cl-list li a', function(){
 // JS for 2nd page
 $(document).on("pagebeforeshow", '#clpage', function() {
 	$('#cl-data').empty();
+	$('h3').html(json.checklist[clickedid].title);
 	$.each(json.checklist[clickedid].list, function(k,v) {
 		console.log(v.title);
 		if(typeof v.style === "undefined") {
