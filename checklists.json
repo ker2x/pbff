@@ -274,7 +274,7 @@
                     {"title" : "Transponder", "text" : "Standby"},
                     {"title" : "", "text" : "", "style":"clseparator"},
 
-                    {"title" : "AFTER TAXI CHECKLIST", "text" : "cltitle"},
+                    {"title" : "AFTER TAXI CHECKLIST", "text" : "", "style":"cltitle"},
                     {"title" : "Parking brake", "text" : "Engaged"},
                     {"title" : "Landing lights", "text" : "OFF"},
                     {"title" : "Taxi lights", "text" : "OFF"},
