@@ -65,7 +65,7 @@ h2 {
 
 <script type="text/javascript">
 
-
+var json;
 var clickedid = 0;
 
 // JS for main page
@@ -79,7 +79,7 @@ $(document).on("pageinit", '#home', function() {
 			var clid = 0;
 			$.each(json.checklist, function(k, v) {
 				$('#cl-list').append('<li><a href="" cl-id="' + clid + '"><h1>' + v.title + '</h1><p>' + v.text + '</p></a></li>');
-				clid = clid + 1
+				clid = clid + 1;
 			});
 			$('#cl-list').listview('refresh');
 		} else {
@@ -109,7 +109,7 @@ $(document).on("pagebeforeshow", '#clpage', function() {
 	$('#cl-data').empty();
 	$('h3').html(json.checklist[clickedid].title);
 	$.each(json.checklist[clickedid].list, function(k,v) {
-		console.log(v.title);
+		var line;
 		if(typeof v.style === "undefined") {
 			var desc;
 			if(typeof v.desc === "undefined") {
