@@ -2,132 +2,176 @@
 <html>
 <head>
   <!-- Include meta tag to ensure proper rendering and touch zooming -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <!-- Include jQuery Mobile stylesheets -->
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <!-- Include the jQuery library -->
-  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <!-- Include the jQuery Mobile library -->
-  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <title>Pilot's Best Friend Forever !</title>
 
 <style>
+
+@media (min-width: 480px) {
+	body, h1, h2  { font-size: 2em !important; }
+	p { font-size: 1.5em !important; }
+}
+
+/*
 .ui-content {
     padding: 0 !important;
 }
- 
+
 .ui-listview {
     margin: 0 !important;
 }
- 
+
 .my-wrapper, .my-wrapper div.iscroll-scroller {
     width: 100% !important;
 }
+
+h1, body {
+	font-size: 2em !important;
+}
+*/
+
+h2 {
+	/*font-size: 1.5em !important;*/
+	text-align: right;
+	padding-right: 10%;
+}
+
+/*
+.ui-block-a {
+	padding-left: 2%;
+}
+
+.ui-block-b {
+	margin-top: 0.5em;
+}
+*/
+.ui-btn.clchecked {
+	background-color: #a6a6a6 !important;
+}
+
+.clseparator {
+	background-color: #424242 !important;
+}
+
 </style>
 
 <script type="text/javascript">
 
+var json;
+var clickedid = 0;
 
-var json = {
-	"title": "ma checklist",
-	"checklist" : [
-		{"title" : "item 1", "checked" : "text checked"} ,
-		{"title" : "item 2", "checked" : "text checked"} ,
-		{"title" : "item 3", "checked" : "text checked"} ,
-	]
-}; 
-
+// JS for main page
 $(document).on("pageinit", '#home', function() {
 
-	//$.getJSON('checklists.json', function(data) {
-		var data = json;
+	// retrieve the JSON
+	$.getJSON('checklists.json', function(data, success) {
+		json = data;
 
-		var cnt = document.getElementById('checklist-content');
-		$.each(data.checklist, function(k, v) {
-			$('#cl-list').append('<li><a href=""><h3>' + v.title + '</h3><p>' + v.checked + '</p></a></li>');
-		});
-		$('#cl-list').listview('refresh');
-	//});
-}); 
+		if (success) {
+			var clid = 0;
+			$.each(json.checklist, function(k, v) {
+				$('#cl-list').append('<li><a href="" cl-id="' + clid + '"><h1>' + v.title + '</h1><p>' + v.text + '</p></a></li>');
+				clid = clid + 1;
+			});
+			$('#cl-list').listview('refresh');
+		} else {
+			// log error !
+		}
+	})
+	.done(function(data) {
+	    console.log( "second success" );
+	})
+	.fail(function(data) {
+		console.log( "error", data);
+	})
+	.always(function(data) {
+		console.log( "complete" );
+	});
+});
 
-$(document).on('vclick', '#cl-list li a', function(){  
+// On checklist click
+$(document).on('vclick', '#cl-list li a', function(){
+    clickedid = $(this).attr('cl-id');
     $.mobile.changePage( "#clpage", { transition: "slide", changeHash: false });
 });
 
+
+// JS for 2nd page
+$(document).on("pagebeforeshow", '#clpage', function() {
+	$('#cl-data').empty();
+	$('h3').html(json.checklist[clickedid].title);
+	$.each(json.checklist[clickedid].list, function(k,v) {
+		var line;
+		if(typeof v.style === "undefined") {
+			var desc;
+			if(typeof v.desc === "undefined") {
+				desc = "";
+			} else {
+				desc = "<p>" + v.desc + "</p>";
+			}
+			line  = '<li data-icon="false"><a href="#">' +
+				'<div class="ui-grid-a">' +
+				'	<div class="ui-block-a" style=""><h1>' + v.title + '</h1></div>' +
+				'	<div class="ui-block-b"><h2>' + v.text + '</h2></div>' +
+				'</div>' + desc + '</a></li>';
+		} else if(v.style == "cltitle") {
+			line  = '<li data-role="list-divider"><h1>' + v.title + '</h1><p>' + v.text + '</p></li>';
+		} else {
+			line  = '<li data-icon="false"><a href="#" class="' + v.style + '"><h1>' + v.title + '</h1><p>' + v.text + '</p></a></li>';
+		}
+		$('#cl-data').append(line);
+	});
+	$('#cl-data').listview('refresh');
+});
+
+// On Item click
+$(document).on('vclick', '#cl-data li a', function(){
+	$(this).toggleClass("clchecked");
+});
+
+
 </script>
- 
-
-
 </head>
 
 
 <body>
 
+<!-- MAIN PAGE -->
 <div data-role="page" id="home">
     <div data-theme="a" data-role="header">
-        <h3>
-		Pilot Best Friend Forever
-        </h3>
+        <h3> Pilot's Best Friend Forever </h3>
     </div>
 
     <div data-role="content">
         <div class="my-wrapper" data-iscroll>
             <ul data-role="listview"  id="cl-list" data-theme="a">
-                
             </ul>
         </div>
     </div>
 
     <div data-theme="a" data-role="footer">
         <h1> <span class="ui-btn-icon-notext ui-icon-heart"></span> </h1>
-    </div>  
+    </div>
 </div>
 
+<!-- CHECKLIST PAGE -->
 <div data-role="page" id="clpage">
     <div data-theme="a" data-role="header">
         <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>
-        <h3>
-            Checklist Info
-        </h3>
+        <h3> Checklist </h3>
     <div data-role="content">
-        <ul data-role="listview"  id="movie-data" data-theme="a">
-            
+        <ul data-role="listview"  id="cl-data">
         </ul>
     </div>
-</div>    
-
-
-<!--
-<div data-role="page" id="pageone">
-  <div data-role="header">
-  <h1>Welcome To My Homepage</h1>
-  </div>
-
-  <div data-role="main" class="ui-content">
-    <div data-role="controlgroup" data-type="vertical" id="checklist-content"> </div>
-  </div>
-
-  <div data-role="footer">
-  <h1>Footer Text</h1>
-  </div>
-</div> 
-
-<div data-role="page" data-dialog="true" id="pagetwo">
-  <div data-role="header">
-    <h1>Welcome To My Homepage</h1>
-  </div>
-
-  <div data-role="main" class="ui-content">
-    <p>This is Page Two. If you click on the link below, it will take you to Page One.</p>
-    <a href="#pageone">Go to Page One</a>
-  </div>
-
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
-</div> 
-
-</div> 
--->
+</div>
 
 </body>
 </html>
